@@ -8,14 +8,12 @@ import {
   Squares2X2Icon
 } from '@heroicons/react/24/outline'
 import { useAccount } from 'wagmi'
-import shorten from '../utils/truncate'
-import Avatar from "boring-avatars";
 import Link from 'next/link'
 
 const navigation = [
   { name: 'Dashboard', href: '/user', icon: HomeIcon },
-  { name: 'Creator', href: '/user/creator', icon: VideoCameraIcon },
-  { name: 'Your subscriptions', href: '/user/subscriptions', icon: Squares2X2Icon },
+  { name: 'Create', href: '/user/create', icon: VideoCameraIcon },
+  { name: 'Subscriptions', href: '/user/subscriptions', icon: Squares2X2Icon },
 ]
 
 function classNames(...classes) {
