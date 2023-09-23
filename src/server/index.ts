@@ -1,5 +1,5 @@
-import { roomsRouter } from "~/server/api/routers/rooms";
-import { createTRPCRouter } from "~/server/api/trpc";
+import { roomsRouter } from "~/server/routers/rooms";
+import { createTRPCRouter } from "./trpc";
 
 /**
  * This is the primary router for your server.

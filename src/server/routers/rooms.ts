@@ -1,6 +1,6 @@
 import { z } from "zod";
 import { Wallet } from 'ethers';
-import { createTRPCRouter, publicProcedure } from "~/server/api/trpc";
+import { createTRPCRouter, publicProcedure } from "../trpc";
 
 export const roomsRouter = createTRPCRouter({
   create: publicProcedure

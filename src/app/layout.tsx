@@ -2,9 +2,10 @@
 
 import { WalletconnectProvider } from '../providers/walletconnect'
 import './globals.css'
-import type { Metadata } from 'next'
+// import type { Metadata } from 'next'
 import { api } from "~/utils/api";
 import { Inter } from 'next/font/google'
+import Provider from "~/app/_trpc/Provider";
 
 const inter = Inter({ subsets: ['latin'] })
 
@@ -18,17 +19,15 @@ export default function RootLayout({
 }: {
   children: React.ReactNode
 }) {
-  const LayoutComponent = () => {
     return (
       <html lang="en">
         <body className={inter.className + 'h-screen w-screen'}>
-          <WalletconnectProvider>
-            {children}
-          </WalletconnectProvider>
+          <Provider>
+            <WalletconnectProvider>
+              {children}
+            </WalletconnectProvider>
+          </Provider>
         </body>
       </html>
     )
-  };
-
-  return api.withTRPC(LayoutComponent);
 }
