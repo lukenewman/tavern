@@ -1,3 +1,6 @@
 export default function Subscriptions() {
-  return (<div></div>)
+  return (<div>
+          hey youre in subscriptions
+
+  </div>)
 }

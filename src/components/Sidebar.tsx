@@ -2,28 +2,31 @@ import { Fragment, useState } from 'react'
 import { Dialog, Transition } from '@headlessui/react'
 import {
   Bars3Icon,
-  VideoCameraIcon,
-  HomeIcon,
   XMarkIcon,
-  Squares2X2Icon
 } from '@heroicons/react/24/outline'
-import { useAccount } from 'wagmi'
 import Link from 'next/link'
-
-const navigation = [
-  { name: 'Dashboard', href: '/user', icon: HomeIcon },
-  { name: 'Create', href: '/user/create', icon: VideoCameraIcon },
-  { name: 'Subscriptions', href: '/user/subscriptions', icon: Squares2X2Icon },
-]
+import { Chatroom, ChatroomUser } from '@prisma/client'
 
 function classNames(...classes) {
   return classes.filter(Boolean).join(' ')
 }
 
+export const liveStreams: Chatroom[] = [
+  { createdAt: new Date(), creator: 'Panda', id: 1, privateKey: '1', updatedAt: new Date(), youtubeURL: 'https://www.youtube.com/watch?v=MIA8AKVZ0Yk', live: true },
+  { createdAt: new Date(), creator: 'Otter', id: 2, privateKey: '2', updatedAt: new Date(), youtubeURL: 'https://www.youtube.com/watch?v=WrKZzs-CB_8', live: true},
+  { createdAt: new Date(), creator: 'Jelly', id: 3, privateKey: '3', updatedAt: new Date(), youtubeURL: 'https://www.youtube.com/watch?v=OMlf71t2oV0', live: false },
+  { createdAt: new Date(), creator: 'Baboon', id: 4, privateKey: '4', updatedAt: new Date(), youtubeURL: 'https://www.youtube.com/watch?v=-Xf6iHaOOck', live: true },
+]
+export const yourSubs: ChatroomUser[] = [
+  { address: '1234', chatroomId: 1, createdAt: new Date(), updatedAt: new Date(), id: 1 },
+  { address: '1234', chatroomId: 2, createdAt: new Date(), updatedAt: new Date(), id: 2 }
+];
+
 export default function Sidebar({children}: {children: React.ReactNode}) {
   const [sidebarOpen, setSidebarOpen] = useState(false);
 
-  const { address } = useAccount();
+  const isWatchPath = window.location.pathname.startsWith('/user/watch');
+  const roomId = isWatchPath ? Number(window.location.pathname.split('/')[3]) : -1;
 
   return (
     <>
@@ -79,30 +82,46 @@ export default function Sidebar({children}: {children: React.ReactNode}) {
                       />
                     </div>
                     <nav className="flex flex-1 flex-col">
+                      <div className="text-xs font-semibold leading-6 text-indigo-200">Live Streams</div>
                       <ul role="list" className="flex flex-1 flex-col gap-y-7">
                         <li>
                           <ul role="list" className="-mx-2 space-y-1">
-                            {navigation.map((item, ix) => (
-                              <li key={item.name}>
+                            {liveStreams.map((item: Chatroom, ix) => (
+                              <li key={ix}>
                                 <Link
                                   key={ix}
-                                  href={item.href}
+                                  href={`/user/watch/${item.id}`}
                                   className={classNames(
-                                    window.location.pathname === item.href
+                                    roomId === item.id
                                       ? 'bg-indigo-700 text-white'
                                       : 'text-indigo-200 hover:text-white hover:bg-indigo-700',
                                     'group flex gap-x-3 rounded-md p-2 text-sm leading-6 font-semibold'
                                   )}
                                 >
-                                  <item.icon
-                                    className={classNames(
-                                      window.location.pathname === item.href
-                                      ? 'text-white' : 'text-indigo-200 group-hover:text-white',
-                                      'h-6 w-6 shrink-0'
-                                    )}
-                                    aria-hidden="true"
-                                  />
-                                  {item.name}
+                                {item.creator} 
+                                </Link>
+                              </li>
+                            ))}
+                          </ul>
+                        </li>
+                      </ul>
+                      <div className="text-xs font-semibold leading-6 text-indigo-200">Your Subscriptions</div>
+                      <ul role="list" className="flex flex-1 flex-col gap-y-7">
+                        <li>
+                          <ul role="list" className="-mx-2 space-y-1">
+                            {yourSubs.map((item: ChatroomUser, ix) => (
+                              <li key={ix}>
+                                <Link
+                                  key={ix}
+                                  href={`/user/watch/${item.chatroomId}`}
+                                  className={classNames(
+                                    roomId === item.id
+                                      ? 'bg-indigo-700 text-white'
+                                      : 'text-indigo-200 hover:text-white hover:bg-indigo-700',
+                                    'group flex gap-x-3 rounded-md p-2 text-sm leading-6 font-semibold'
+                                  )}
+                                >
+                                {item.chatroomId}
                                 </Link>
                               </li>
                             ))}
@@ -129,35 +148,47 @@ export default function Sidebar({children}: {children: React.ReactNode}) {
               />
             </div>
             <nav className="flex flex-1 flex-col">
-              <ul role="list" className="flex flex-1 flex-col gap-y-7">
-                <li>
-                  <ul role="list" className="-mx-2 space-y-1">
-                    {navigation.map((item) => (
-                      <li key={item.name}>
-                        <Link
-                          href={item.href}
-                          className={classNames(
-                            window.location.pathname === item.href
-                              ? 'bg-indigo-700 text-white'
-                              : 'text-indigo-200 hover:text-white hover:bg-indigo-700',
-                            'group flex gap-x-3 rounded-md p-2 text-sm leading-6 font-semibold'
-                          )}
-                        >
-                          <item.icon
-                            className={classNames(
-                              window.location.pathname === item.href
-                              ? 'text-white' : 'text-indigo-200 group-hover:text-white',
-                              'h-6 w-6 shrink-0'
-                            )}
-                            aria-hidden="true"
-                          />
-                          {item.name}
-                        </Link>
-                      </li>
-                    ))}
-                  </ul>
-                </li>
-                
+                      <div className="text-xs font-semibold leading-6 text-indigo-200">Live Streams</div>
+                      <ul role="list" className="flex flex-1 flex-col gap-y-7">
+                        <li>
+                          <ul role="list" className="-mx-2 space-y-1">
+                            {liveStreams.map((item: Chatroom, ix) => (
+                              <li key={ix}>
+                                <Link
+                                  key={ix}
+                                  href={`/user/watch/${item.id}`}
+                                  className={classNames(
+                                    'text-indigo-200 hover:text-white hover:bg-indigo-700',
+                                    'group flex gap-x-3 rounded-md p-2 text-sm leading-6 font-semibold'
+                                  )}
+                                >
+                                {item.creator} 
+                                </Link>
+                              </li>
+                            ))}
+                          </ul>
+                        </li>
+                      </ul>
+                      <div className="text-xs font-semibold leading-6 text-indigo-200">Your Subscriptions</div>
+                      <ul role="list" className="flex flex-1 flex-col gap-y-7">
+                        <li>
+                          <ul role="list" className="-mx-2 space-y-1">
+                            {yourSubs.map((item: ChatroomUser, ix) => (
+                              <li key={ix}>
+                                <Link
+                                  key={ix}
+                                  href={`/user/watch/${item.chatroomId}`}
+                                  className={classNames(
+                                    'text-indigo-200 hover:text-white hover:bg-indigo-700',
+                                    'group flex gap-x-3 rounded-md p-2 text-sm leading-6 font-semibold'
+                                  )}
+                                >
+                                {item.chatroomId}
+                                </Link>
+                              </li>
+                            ))}
+                          </ul>
+                  </li>
                 <li className="-mx-6 mt-auto">
                   <w3m-button balance='hide' />
                 </li>
@@ -174,7 +205,6 @@ export default function Sidebar({children}: {children: React.ReactNode}) {
           <div className="flex-1 text-sm font-semibold leading-6 text-white">Dashboard</div>
           <w3m-button balance='hide' />
         </div>
-
         <main className="py-10 lg:pl-72">
           <div className="px-4 sm:px-6 lg:px-8">
             {children}

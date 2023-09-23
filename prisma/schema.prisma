@@ -16,6 +16,7 @@ model Chatroom {
   privateKey   String         @unique
   creator      String /// address
   stream_url   String
+  isLive       Boolean
   name         String
   ChatroomUser ChatroomUser[]
 

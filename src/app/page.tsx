@@ -4,10 +4,12 @@ import { useAccount } from 'wagmi';
 import Link from 'next/link'
 import Image from 'next/image';
 import tavern from './tavern.jpeg';
+import { useInitialize } from '~/hooks/useInitialize';
 
 export default function Home() {
   const { address } = useAccount();
-
+  useInitialize();
+  
   return (
     <div className="bg-white w-full h-full">
       <div className="mx-auto max-w-7xl lg:grid lg:grid-cols-12 lg:gap-x-8 lg:px-8">
@@ -46,7 +48,7 @@ export default function Home() {
           <Image
             className="aspect-[3/2] w-full bg-gray-50 object-cover lg:absolute lg:inset-0 lg:aspect-auto lg:h-full"
             src={tavern}
-            alt="A Make-up artist live streamer"
+            alt="A cozy place"
           />
         </div>
       </div>
