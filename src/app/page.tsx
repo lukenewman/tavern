@@ -1,12 +1,12 @@
 'use client'
 
 import { useAccount } from 'wagmi';
-import Link from 'next/link';
+import Link from 'next/link'
 import Image from 'next/image';
-import tavern from './tavern.jpg';
+import tavern from './tavern.jpeg';
 
 export default function Home() {
-  const { address }: { address: string | undefined } = useAccount();
+  const { address } = useAccount();
 
   return (
     <div className="bg-white w-full h-full">
@@ -14,7 +14,7 @@ export default function Home() {
         <div className="px-6 pb-24 pt-10 sm:pb-32 lg:col-span-7 lg:px-0 lg:pb-56 lg:pt-48 xl:col-span-6">
           <div className="mx-auto max-w-2xl lg:mx-0">
             <h2 className="font-mono text-4xl text-gray-900">
-              GangGang
+              Tavern
             </h2>
             <div className="hidden sm:mt-32 sm:flex lg:mt-16">
               <div className="relative rounded-full px-3 py-1 text-sm leading-6 text-gray-500 ring-1 ring-gray-900/10 hover:ring-gray-900/20 gap-1">
@@ -26,7 +26,7 @@ export default function Home() {
               </div>
             </div>
             <h1 className="mt-24 text-4xl font-bold tracking-tight text-gray-900 sm:mt-10 sm:text-6xl">
-              A WalletConnect powered platform for entertainers
+              A place for you and your anon besties to hang
             </h1>
             <p className="mt-6 text-lg leading-8 text-gray-600">
               Anim aute id magna aliqua ad ad non deserunt sunt. Qui irure qui lorem cupidatat commodo. Elit sunt amet

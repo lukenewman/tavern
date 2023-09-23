@@ -6,23 +6,28 @@ import { goerli } from 'viem/chains';
 import { WagmiConfig } from 'wagmi'
 
 export const WalletconnectProvider = ({children}:{children: React.ReactNode}) => {
-  // 1. Get projectId
-  const projectId = '464039f4008f1acbb628fa56f6fd5f6b'
+  const [wagmiConfig, setWagmiConfig] = useState<any>();
 
-  // 2. Create wagmiConfig
-  const chains = [goerli];
-  const config = defaultWagmiConfig({ chains, projectId, appName: 'Web3Modal' })
+  useEffect(() => {
+    // 1. Get projectId
+    const projectId = '464039f4008f1acbb628fa56f6fd5f6b'
 
-  // 3. Create modal
-  createWeb3Modal({ wagmiConfig: config, projectId, chains })
+    // 2. Create wagmiConfig
+    const chains = [goerli];
+    const config = defaultWagmiConfig({ chains, projectId, appName: 'Web3Modal' })
 
+    // 3. Create modal
+    createWeb3Modal({ wagmiConfig: config, projectId, chains })
 
-  if (!config) {
+    setWagmiConfig(config);
+  }, []);
+
+  if (!wagmiConfig) {
     return null; // or a loading spinner, etc.
   }
 
   return (
-    <WagmiConfig config={config}>
+    <WagmiConfig config={wagmiConfig}>
       {children}
     </WagmiConfig>
   )

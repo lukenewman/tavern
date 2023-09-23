@@ -1,6 +1,7 @@
 'use client'
 
 import Sidebar from "../../components/Sidebar"
+import { useAccount } from "wagmi";
 
 const UserHome = ({ children }: {children: React.ReactNode}) => {
   return (
