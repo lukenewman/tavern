@@ -2,46 +2,41 @@
 // learn more about it in the docs: https://pris.ly/d/prisma-schema
 
 generator client {
-    provider = "prisma-client-js"
+  provider = "prisma-client-js"
 }
 
 datasource db {
-    provider = "sqlite"
-    url      = env("DATABASE_URL")
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
 }
 
 model Chatroom {
-    @@map("chatroom")
-    id          Int      @id @default(autoincrement()) @unique
-    privateKey  String   @unique
-    creator     String
-    createdAt   DateTime @default(now())
-    updatedAt   DateTime @updatedAt
-    users       ChatroomUser[]
+  id           Int            @id @default(autoincrement())
+  createdAt    DateTime       @default(now())
+  privateKey   String         @unique
+  creator      String /// address
+  stream_url   String
+  name         String
+  ChatroomUser ChatroomUser[]
 
-    @@index([id])
+  @@index([id])
+  @@map("chatroom")
 }
 
 model User {
-    @@map("user")
-    id          Int      @id @default(autoincrement())
-    address     String   @unique
-    createdAt   DateTime @default(now())
-    updatedAt   DateTime @updatedAt
-    chatrooms   ChatroomUser[]
+  address   String         @id
+  chatrooms ChatroomUser[]
 
-    @@index([id])
+  @@index([address])
+  @@map("user")
 }
 
 model ChatroomUser {
-    @@map("chatroom-user")
-    id                  Int @id @default(autoincrement())
-    chatroomId          Int
-    address             String
-    createdAt           DateTime @default(now())
-    updatedAt           DateTime @updatedAt
-    Chatroom            Chatroom @relation(fields: [chatroomId], references: [id])
-    User                User @relation(fields: [address], references: [address])
+  chatroomId Int
+  address    String   @id
+  Chatroom   Chatroom @relation(fields: [chatroomId], references: [id])
+  User       User     @relation(fields: [address], references: [address])
 
-    @@index([chatroomId, address], name: "chatroomUserIndex")
+  @@index([chatroomId, address], name: "chatroomUserIndex")
+  @@map("chatroom-user")
 }
