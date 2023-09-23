@@ -1,8 +1,8 @@
 'use client'
 
 import { useAccount } from 'wagmi';
-import Link from 'next/link'
-import Image from 'next/image';
+import Link from 'next/link';
+import { Image } from 'next/image';
 import tavern from './tavern.jpg';
 
 export default function Home() {
