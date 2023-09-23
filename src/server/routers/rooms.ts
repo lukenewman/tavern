@@ -6,14 +6,15 @@ export const roomsRouter = createTRPCRouter({
   create: publicProcedure
     .input(z.object({
       name: z.string(),
-      creator: z.string()
+      creator: z.string(),
+      stream_url: z.string(),
     }))
-    .query(({ ctx, input }) => {
+    .mutation(({ ctx, input }) => {
       const privateKey = Wallet.createRandom().privateKey;
       return ctx.db.chatroom.create({
         privateKey,
         creator: input.creator,
-        stream_url: '',
+        stream_url: input.stream_url,
         name: input.name
       });
     }),

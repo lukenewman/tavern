@@ -3,6 +3,7 @@ import { Dialog, Transition } from '@headlessui/react'
 import {
   Bars3Icon,
   XMarkIcon,
+  VideoCameraIcon
 } from '@heroicons/react/24/outline'
 import Link from 'next/link'
 import { Chatroom, ChatroomUser } from '@prisma/client'
@@ -17,12 +18,13 @@ export const liveStreams: Chatroom[] = [
   { createdAt: new Date(), creator: 'Jelly', id: 3, privateKey: '3', updatedAt: new Date(), youtubeURL: 'https://www.youtube.com/watch?v=OMlf71t2oV0', live: false },
   { createdAt: new Date(), creator: 'Baboon', id: 4, privateKey: '4', updatedAt: new Date(), youtubeURL: 'https://www.youtube.com/watch?v=-Xf6iHaOOck', live: true },
 ]
+
 export const yourSubs: ChatroomUser[] = [
   { address: '1234', chatroomId: 1, createdAt: new Date(), updatedAt: new Date(), id: 1 },
   { address: '1234', chatroomId: 2, createdAt: new Date(), updatedAt: new Date(), id: 2 }
 ];
 
-export default function Sidebar({children}: {children: React.ReactNode}) {
+export default function Sidebar({ children }: { children: React.ReactNode }) {
   const [sidebarOpen, setSidebarOpen] = useState(false);
 
   const isWatchPath = window.location.pathname.startsWith('/user/watch');
@@ -81,7 +83,7 @@ export default function Sidebar({children}: {children: React.ReactNode}) {
                         alt="Your Company"
                       />
                     </div>
-                    <nav className="flex flex-1 flex-col">
+                    <nav className="flex flex-col h-full">
                       <div className="text-xs font-semibold leading-6 text-indigo-200">Live Streams</div>
                       <ul role="list" className="flex flex-1 flex-col gap-y-7">
                         <li>
@@ -128,6 +130,15 @@ export default function Sidebar({children}: {children: React.ReactNode}) {
                           </ul>
                         </li>
                       </ul>
+                      <div className='w-full justify-center'>
+                        <a
+                          className='px-4 py-2 flex items-center bg-green-800 text-indigo-200 rounded-full gap-2'
+                          href='/user/create'
+                        >
+                          <VideoCameraIcon className='w-6 h-6'/>
+                          Go Live
+                        </a>
+                      </div>
                     </nav>
                   </div>
                 </Dialog.Panel>
@@ -147,52 +158,62 @@ export default function Sidebar({children}: {children: React.ReactNode}) {
                 alt="Your Company"
               />
             </div>
-            <nav className="flex flex-1 flex-col">
-                      <div className="text-xs font-semibold leading-6 text-indigo-200">Live Streams</div>
-                      <ul role="list" className="flex flex-1 flex-col gap-y-7">
-                        <li>
-                          <ul role="list" className="-mx-2 space-y-1">
-                            {liveStreams.map((item: Chatroom, ix) => (
-                              <li key={ix}>
-                                <Link
-                                  key={ix}
-                                  href={`/user/watch/${item.id}`}
-                                  className={classNames(
-                                    'text-indigo-200 hover:text-white hover:bg-indigo-700',
-                                    'group flex gap-x-3 rounded-md p-2 text-sm leading-6 font-semibold'
-                                  )}
-                                >
-                                {item.creator} 
-                                </Link>
-                              </li>
-                            ))}
-                          </ul>
-                        </li>
-                      </ul>
-                      <div className="text-xs font-semibold leading-6 text-indigo-200">Your Subscriptions</div>
-                      <ul role="list" className="flex flex-1 flex-col gap-y-7">
-                        <li>
-                          <ul role="list" className="-mx-2 space-y-1">
-                            {yourSubs.map((item: ChatroomUser, ix) => (
-                              <li key={ix}>
-                                <Link
-                                  key={ix}
-                                  href={`/user/watch/${item.chatroomId}`}
-                                  className={classNames(
-                                    'text-indigo-200 hover:text-white hover:bg-indigo-700',
-                                    'group flex gap-x-3 rounded-md p-2 text-sm leading-6 font-semibold'
-                                  )}
-                                >
-                                {item.chatroomId}
-                                </Link>
-                              </li>
-                            ))}
-                          </ul>
-                  </li>
-                <li className="-mx-6 mt-auto">
-                  <w3m-button balance='hide' />
+            <nav className="flex flex-col h-full">
+              <div className="text-xs font-semibold leading-6 text-indigo-200">Live Streams</div>
+              <ul role="list" className="flex flex-1 flex-col gap-y-7">
+                <li>
+                  <ul role="list" className="-mx-2 space-y-1">
+                    {liveStreams.map((item: Chatroom, ix) => (
+                      <li key={ix}>
+                        <Link
+                          key={ix}
+                          href={`/user/watch/${item.id}`}
+                          className={classNames(
+                            'text-indigo-200 hover:text-white hover:bg-indigo-700',
+                            'group flex gap-x-3 rounded-md p-2 text-sm leading-6 font-semibold'
+                          )}
+                        >
+                        {item.creator} 
+                        </Link>
+                      </li>
+                    ))}
+                  </ul>
                 </li>
               </ul>
+              <div className="text-xs font-semibold leading-6 text-indigo-200">Your Subscriptions</div>
+              <ul role="list" className="flex flex-1 flex-col gap-y-7">
+                <li>
+                  <ul role="list" className="-mx-2 space-y-1">
+                    {yourSubs.map((item: ChatroomUser, ix) => (
+                      <li key={ix}>
+                        <Link
+                          key={ix}
+                          href={`/user/watch/${item.chatroomId}`}
+                          className={classNames(
+                            'text-indigo-200 hover:text-white hover:bg-indigo-700',
+                            'group flex gap-x-3 rounded-md p-2 text-sm leading-6 font-semibold'
+                          )}
+                        >
+                        {item.chatroomId}
+                        </Link>
+                      </li>
+                    ))}
+                  </ul>
+                </li>
+              </ul>
+              <div className='w-full justify-center'>
+                <a
+                  className='px-4 py-2 flex items-center bg-green-800 text-indigo-200 rounded-full gap-2'
+                  href='/user/create'
+                >
+                  <VideoCameraIcon className='w-6 h-6'/>
+                  Go Live
+                </a>
+              </div>
+              <div className='flex flex-col flex-grow'/>
+              <div className='pb-4'>
+                <w3m-button balance='hide' />
+              </div>
             </nav>
           </div>
         </div>
