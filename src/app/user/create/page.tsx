@@ -38,9 +38,6 @@ export default function Create() {
             <div className="mt-2">
               <input
                 type="text"
-                name="first-name"
-                id="first-name"
-                autoComplete="given-name"
                 className="block w-full rounded-md border-0 py-1.5 pl-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                 value={streamName}
                 onChange={(e) => setStreamName(e.target.value)}
@@ -54,9 +51,6 @@ export default function Create() {
             <div className="mt-2">
               <input
                 type="text"
-                name="first-name"
-                id="first-name"
-                autoComplete="given-name"
                 className="block w-full rounded-md border-0 py-1.5 pl-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                 value={streamUrl}
                 onChange={(e) => setStreamURL(e.target.value)}
@@ -71,7 +65,6 @@ export default function Create() {
             Cancel
           </button>
           <button
-            type="submit"
             className="rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600 disabled:"
             onClick={create}
             disabled={createQuery.isLoading || !isReadyToSubmit}
