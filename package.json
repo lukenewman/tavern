@@ -11,6 +11,8 @@
     "start": "next start"
   },
   "dependencies": {
+    "@headlessui/react": "^1.7.17",
+    "@heroicons/react": "^2.0.18",
     "@prisma/client": "^5.1.1",
     "@t3-oss/env-nextjs": "^0.6.0",
     "@tanstack/react-query": "^4.32.6",
@@ -18,10 +20,16 @@
     "@trpc/next": "^10.37.1",
     "@trpc/react-query": "^10.37.1",
     "@trpc/server": "^10.37.1",
+    "@web3modal/wagmi": "3.0.0-beta.4",
+    "boring-avatars": "^1.10.1",
+    "encoding": "^0.1.13",
     "next": "^13.4.19",
+    "pino-pretty": "^10.2.0",
     "react": "18.2.0",
     "react-dom": "18.2.0",
     "superjson": "^1.13.1",
+    "viem": "^1.12.1",
+    "wagmi": "^1.4.2",
     "zod": "^3.21.4"
   },
   "devDependencies": {

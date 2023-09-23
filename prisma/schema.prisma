@@ -10,11 +10,30 @@ datasource db {
     url      = env("DATABASE_URL")
 }
 
-model Example {
-    id        Int      @id @default(autoincrement())
-    name      String
-    createdAt DateTime @default(now())
-    updatedAt DateTime @updatedAt
+model Chatroom {
+    id          Int      @id @default(autoincrement()) @unique
+    privateKey  String   @unique
+    creator     String
+    createdAt   DateTime @default(now())
+    updatedAt   DateTime @updatedAt
 
-    @@index([name])
+    @@index([id])
+}
+
+model User {
+    id          Int      @id @default(autoincrement())
+    address     String   @unique
+    createdAt   DateTime @default(now())
+    updatedAt   DateTime @updatedAt
+
+    @@index([id])
+}
+
+model ChatroomUser {
+    id          Int      @id @relation("id",)
+    address     String   @map("User")
+    createdAt   DateTime @default(now())
+    updatedAt   DateTime @updatedAt
+
+    @@index([id])
 }
