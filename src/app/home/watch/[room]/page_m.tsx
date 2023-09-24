@@ -1,20 +1,9 @@
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { trpc } from "~/app/_trpc/client";
-import { initialize } from "~/components/xmtp/helpers/i18n";
-import Inbox from "~/components/xmtp/pages/inbox";
-import { useXmtpStore } from "~/components/xmtp/store/xmtp";
+import { Chat } from "~/components/Chat";
+import { ChatMessage } from "./page";
 
-export default function Watch({ room }: { room: string }) {
-  const [initialized, setInitialized] = useState(false);
-  useEffect(() => {
-    const initI18n = async () => {
-      await initialize();
-      setInitialized(true);
-    };
-    void initI18n();
-  }, []);
-
-  // const xmtp = useXmtpStore((state) => [state.])
+export default function Watch({ room, messages }: { room: string, messages: ChatMessage[] }) {
 
   const chatRoomQuery = trpc.rooms.getAll.useQuery()
 
@@ -28,7 +17,7 @@ export default function Watch({ room }: { room: string }) {
   return (
     <div>
       {`hey, you're in room ${room}`}
-      {initialized && <Inbox/>}
+      <Chat messages={messages}/>
     </div>
   )
 }

@@ -11,19 +11,30 @@ import {
 import { useAccount } from 'wagmi';
 import Watch from './page_m';
 
+export type ChatMessage = {
+  sender: string,
+  message: string,
+}
+
 export default function Chat({ params }: { params: { room: string } }) {
   const { address } = useAccount();
   const STREAM_PRIVATE_KEY = '0x34995edc3b4dad962aa0677c7e629552f821b204b2173e6c55af19128e643076';
   const STREAM_ADDRESS = '0xf1e0eB5F6Ba7844e0e9E9B7fFa3E3BBFd77FE079';
   const OWNER_ADDRESS = '';
-  const [messages, setMessages] = useState<string[]>([]);
+  const [messages, setMessages] = useState<ChatMessage[]>([]);
 
-  const mapMessages = (messages: DecodedMessage<string | undefined>[]): string[] => {
+  const mapMessages = (messages: DecodedMessage<string | undefined>[]): ChatMessage[] => {
     return messages.map(m => {
       if (m.contentType.sameAs(ContentTypeGroupChat)) {
-        return m.content!.message as string;
+        return {
+          message: m.content!.message as string,
+          sender: m.senderAddress
+        }
       }
-      return m.content!;
+      return {
+        message: m.content!,
+        sender: m.senderAddress
+      };
     }).filter(m => m);
   };
 
@@ -75,9 +86,11 @@ export default function Chat({ params }: { params: { room: string } }) {
     return <>no address</>;
   }
 
+  console.log(messages);
+
   return (
     <div>
-      <Watch/>
+      <Watch room={params.room} messages={messages}/>
     </div>
   );
 };
