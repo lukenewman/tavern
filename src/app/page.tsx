@@ -6,13 +6,17 @@ import Image from 'next/image';
 import tavern from './tavern.jpeg';
 import { useEffect } from 'react';
 import { useRouter } from 'next/navigation';
+import { useInitializeXmtp } from '~/hooks/useInitializeXmtp';
 
 export default function App() {
   const router = useRouter();
   const account = useAccount();
+
   useEffect(() => {
     router.push(account ? '/home' : '/');
   }, [account]);
+
+  useInitializeXmtp()
   
   return (
     <div className="bg-white w-full h-full">
