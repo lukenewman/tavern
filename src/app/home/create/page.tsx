@@ -8,7 +8,7 @@ export default function Create() {
   const [streamName, setStreamName] = useState<string | undefined>(undefined);
 
   const { address } = useAccount();
-  const createQuery = trpc.rooms.create.useMutation()
+  const createQuery = trpc.rooms.create.useMutation();
 
   const isReadyToSubmit = !!address && !!streamUrl && !!streamName;
 

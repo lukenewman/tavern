@@ -18,7 +18,9 @@ export default function Provider({ children }: { children: React.ReactNode }) {
     })
   );
 
-  window.Buffer = window.Buffer ?? Buffer;
+  if (typeof window !== 'undefined') {
+    window.Buffer = window.Buffer ?? Buffer;
+  }
   return (
     <trpc.Provider client={trpcClient} queryClient={queryClient}>
       <QueryClientProvider client={queryClient}>{children}</QueryClientProvider>

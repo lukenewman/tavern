@@ -3,26 +3,29 @@
 import { useClient } from "@xmtp/react-sdk";
 import { useCallback } from 'react';
 import { api } from "../../utils/api";
-import { useEthersSigner } from "~/utils/ethers";
-import { useCheckConnection } from '../..//hooks/useCheckConnection';
+// import { useEthersSigner } from "~/utils/ethers";
 
 export default function Home() {
-  useCheckConnection();
-
   const { client, error, isLoading, initialize } = useClient();
-  const signer = useEthersSigner();
+  // const signer = useEthersSigner();
+  // console.log('signer', signer);
 
   const handleConnect = useCallback(async () => {
     console.log('initializing xmtp client...');
-    await initialize({ signer });
+    // await initialize({ signer });
   }, [initialize]);
+
+  const roomsQuery = api.rooms.getAll.useQuery();
+  if (roomsQuery.data) {
+    console.log('rooms', roomsQuery.data);
+  }
 
   if (error) {
     return "An error occurred while initializing the client";
   }
 
   if (isLoading) {
-    return "Awaiting signatures...";
+    return "Please sign the request in MetaMask";
   }
 
   if (!client) {
@@ -33,15 +36,11 @@ export default function Home() {
     );
   }
 
-  return "Connected to XMTP";
-
-  // const roomsQuery = api.rooms.getAll.useQuery();
-
-  // return (
-  //   <div>
-  //     {roomsQuery.data?.map(room => (
-  //       <h1 key={room.id}>{room.name}</h1>
-  //     ))}
-  //   </div>
-  // );
+  return (
+    <div>
+      {roomsQuery.data?.map(room => (
+        <h1 key={room.id}>{room.name}</h1>
+      ))}
+    </div>
+  );
 }

@@ -1,6 +1,6 @@
 import { create } from 'zustand';
 import { immer } from 'zustand/middleware/immer';
-import { Wallet } from 'ethers';
+// import { Wallet } from 'ethers';
 import { Conversation } from '@xmtp/xmtp-js';
 
 type Room = {
@@ -11,7 +11,7 @@ type Room = {
 };
 
 type State = {
-  connected?: Wallet,
+  // connected?: Wallet,
   rooms: Room[]
   createRoom: () => Promise<void>;
   joinRoom: () => Promise<void>;
@@ -23,9 +23,9 @@ export const useStore = create<State>()(
     connected: undefined,
     rooms: [],
 
-    connect: (wallet: Wallet) => {
-      set({ connected: wallet });
-    },
+    // connect: (wallet: Wallet) => {
+    //   set({ connected: wallet });
+    // },
     createRoom: async () => {
       
     },
