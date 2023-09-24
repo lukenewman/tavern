@@ -2,6 +2,7 @@
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { httpBatchLink } from "@trpc/client";
 import React, { useState } from "react";
+import { Buffer } from "buffer";
 
 import { trpc } from "./client";
 
@@ -16,6 +17,8 @@ export default function Provider({ children }: { children: React.ReactNode }) {
       ],
     })
   );
+
+  window.Buffer = window.Buffer ?? Buffer;
   return (
     <trpc.Provider client={trpcClient} queryClient={queryClient}>
       <QueryClientProvider client={queryClient}>{children}</QueryClientProvider>

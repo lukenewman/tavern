@@ -5,11 +5,8 @@ import { XMTPProvider } from '@xmtp/react-sdk';
 import './globals.css'
 import { Inter } from 'next/font/google'
 import Provider from "~/app/_trpc/Provider";
-import { Buffer } from "buffer";
 
 const inter = Inter({ subsets: ['latin'] })
-
-window.Buffer = window.Buffer ?? Buffer;
 
 export default function RootLayout({
   children,

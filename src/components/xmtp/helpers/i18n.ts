@@ -4,6 +4,8 @@ import LanguageDetector from "i18next-browser-languagedetector";
 import backend from "i18next-http-backend";
 import { format as formatDate, formatDistanceStrict } from "date-fns";
 import * as locales from "date-fns/locale"; // import all locales we need
+import * as en_US from '../locales/en_US.json'
+
 
 // this is a copy of `isDate` with the correct type
 // @see https://github.com/date-fns/date-fns/blob/main/src/isDate/index.ts
@@ -23,22 +25,6 @@ export const supportedLocales = ["en-US", "hi-IN"];
 
 export const initialize = async () => {
   // Get translated JSON files from locales folder so we don't need to import here individually
-  const localeFiles = import.meta.glob("../../src/locales/*.json");
-  const filenames = Object.keys(localeFiles).map(
-    (item) => item.split("locales/")[1],
-  ); // => ['./de_DE.json, './en_US.json']
-
-  const keyValuePairs = await Promise.all(
-    filenames.map(async (name) => {
-      const locale = name.match(/(\w+)\.json$/)?.[0] || "en_US.json";
-      const file = await localeFiles[`../locales/${locale}`]();
-      return [locale.split(".json")[0], file] as [string, TranslationObject];
-    }),
-  );
-
-  // Create object with languages and corresponding file mappings
-  const messages = Object.fromEntries(keyValuePairs);
-
   // Populate mapping of language to locale file resources
   const resourceMap: Record<
     string,
@@ -47,9 +33,9 @@ export const initialize = async () => {
     }
   > = {};
 
-  Object.keys(messages).forEach((locale) => {
+  Object.keys({ 'en_US': en_US }).forEach((locale) => {
     const lang = locale?.split("_")?.[0];
-    resourceMap[lang] = { translation: messages[locale] };
+    resourceMap['en_US'] = { translation: en_US };
   });
 
   void i18next

@@ -60,54 +60,13 @@ type UnstoppableDomainsDomainResponse = {
 export const fetchUnsName = async (
   address: string | undefined,
 ): Promise<string | null> => {
-  if (import.meta.env.VITE_UNS_TOKEN && address) {
-    try {
-      const response = await fetch(
-        `https://resolve.unstoppabledomains.com/reverse/${address.toLowerCase()}`,
-        {
-          headers: {
-            Authorization: `Bearer ${import.meta.env.VITE_UNS_TOKEN}`,
-          },
-        },
-      );
-
-      const domainJson =
-        (await response.json()) as UnstoppableDomainsDomainResponse;
-      return domainJson?.meta?.domain ? domainJson?.meta?.domain : null;
-    } catch {
-      return null;
-    }
-  } else {
-    return null;
-  }
+  return Promise.resolve(null);
 };
 
 export const fetchUnsAddress = async (
   name: string | undefined,
 ): Promise<string | null> => {
-  if (import.meta.env.VITE_UNS_TOKEN && name) {
-    try {
-      const response = await fetch(
-        `https://resolve.unstoppabledomains.com/domains/${name}`,
-        {
-          headers: {
-            Authorization: `Bearer ${import.meta.env.VITE_UNS_TOKEN}`,
-          },
-        },
-      );
-      const domainJson =
-        (await response.json()) as UnstoppableDomainsDomainResponse;
-      if (
-        domainJson?.meta?.owner === "0x0000000000000000000000000000000000000000"
-      )
-        return null;
-      return domainJson?.meta?.owner ? domainJson?.meta?.owner : null;
-    } catch {
-      return null;
-    }
-  } else {
-    return null;
-  }
+  return Promise.resolve(null);
 };
 
 export const isValidRecipientAddressFormat = (recipientWalletAddress: string) =>

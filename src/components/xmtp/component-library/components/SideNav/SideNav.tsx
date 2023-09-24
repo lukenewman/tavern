@@ -62,7 +62,7 @@ const SideNav = ({
   useEffect(() => {
     const langs = supportedLocales.map((locale: string) => {
       const lang = locale?.split("-")?.[0] ?? "en";
-      const languageNames = new Intl.DisplayNames(['en-emodeng'], {
+      const languageNames = new Intl.DisplayNames(['en'], {
         type: "language",
       });
 

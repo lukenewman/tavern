@@ -9,9 +9,9 @@ import {
   ContentTypeGroupChatCodec,
 } from "./group_chat_type";
 import { useAccount } from 'wagmi';
-import Inbox from '~/components/xmtp/pages/inbox';
- 
-export default function Chat() {
+import Watch from './page_m';
+
+export default function Chat({ params }: { params: { room: string } }) {
   const { address } = useAccount();
   const STREAM_PRIVATE_KEY = '0x34995edc3b4dad962aa0677c7e629552f821b204b2173e6c55af19128e643076';
   const STREAM_ADDRESS = '0xf1e0eB5F6Ba7844e0e9E9B7fFa3E3BBFd77FE079';
@@ -77,15 +77,7 @@ export default function Chat() {
 
   return (
     <div>
-      {/* <input
-        type="text"
-        placeholder="Stream name"
-        onChange={(e) => setMessages(e.target.value)}
-      /> */}
-      {/* { messages.map((message, ix) => 
-        <p key={ix}>{`${message}`}</p>
-      ) } */}
-      <Inbox/>
+      <Watch/>
     </div>
   );
 };

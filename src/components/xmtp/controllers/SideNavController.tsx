@@ -14,7 +14,7 @@ export const SideNavController = () => {
 
   useEffect(() => {
     const getUns = async () => {
-      if (isValidLongWalletAddress(client?.address || "")) {
+      if (isValidLongWalletAddress(client?.address ?? "")) {
         const name = await fetchUnsName(client?.address);
         setUnsNameConnected(name);
       } else {
@@ -42,7 +42,7 @@ export const SideNavController = () => {
     <SideNav
       displayAddress={domain ?? client?.address}
       walletAddress={client?.address}
-      avatarUrl={selfAvatarUrl || ""}
+      avatarUrl={selfAvatarUrl ?? ""}
       onDisconnect={() => {
         void disconnect();
         wipeKeys(client?.address ?? "");
