@@ -4,8 +4,11 @@ import { useClient } from "@xmtp/react-sdk";
 import { useCallback } from 'react';
 import { api } from "../../utils/api";
 import { useEthersSigner } from "~/utils/ethers";
+import { useCheckConnection } from '../..//hooks/useCheckConnection';
 
 export default function Home() {
+  useCheckConnection();
+
   const { client, error, isLoading, initialize } = useClient();
   const signer = useEthersSigner();
 

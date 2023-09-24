@@ -13,17 +13,17 @@ export default function RootLayout({
 }: {
   children: React.ReactNode
 }) {
-    return (
-      <html lang="en">
-        <body className={inter.className + 'h-screen w-screen'}>
-          <Provider>
-            <WalletconnectProvider>
-              <XMTPProvider>
-                {children}
-              </XMTPProvider>
-            </WalletconnectProvider>
-          </Provider>
-        </body>
-      </html>
-    );
+  return (
+    <html lang="en">
+      <body className={inter.className + 'h-screen w-screen'}>
+        <Provider>
+          <WalletconnectProvider>
+            <XMTPProvider>
+              {children}
+            </XMTPProvider>
+          </WalletconnectProvider>
+        </Provider>
+      </body>
+    </html>
+  );
 }
