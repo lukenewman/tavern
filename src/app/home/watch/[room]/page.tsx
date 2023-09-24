@@ -9,6 +9,7 @@ import {
   ContentTypeGroupChatCodec,
 } from "./group_chat_type";
 import { useAccount } from 'wagmi';
+import Inbox from '~/components/xmtp/pages/inbox';
  
 export default function Chat() {
   const { address } = useAccount();
@@ -70,6 +71,10 @@ export default function Chat() {
     setMessages([...messages, ...mapMessages([message])]);
   };
 
+  if (!address) {
+    return <>no address</>;
+  }
+
   return (
     <div>
       {/* <input
@@ -77,9 +82,10 @@ export default function Chat() {
         placeholder="Stream name"
         onChange={(e) => setMessages(e.target.value)}
       /> */}
-      { messages.map((message, ix) => 
+      {/* { messages.map((message, ix) => 
         <p key={ix}>{`${message}`}</p>
-      ) }
+      ) } */}
+      <Inbox/>
     </div>
   );
 };

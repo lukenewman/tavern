@@ -4,10 +4,13 @@ import Image from 'next/image';
 import tavern from './tavern.jpeg';
 import { useCheckConnection } from '../hooks/useCheckConnection';
 import { useInitializeXmtp } from '~/hooks/useInitializeXmtp';
+import Link from 'next/link';
+import { useAccount } from 'wagmi';
 
 export default function App() {
+  const { address } = useAccount();
   useCheckConnection();
-  useInitializeXmtp();
+  const client = useInitializeXmtp();
   
   return (
     <div className="bg-white w-full h-full">
@@ -35,11 +38,11 @@ export default function App() {
             </p>
             <div className="mt-10 flex items-center gap-x-6">
               <w3m-button balance='hide' />
-              {/* {account.address &&
-                <Link href="/user" className="text-sm pl-2 font-semibold leading-6 text-gray-900">
+              {address &&
+                <Link href="/home" className="text-sm pl-2 font-semibold leading-6 text-gray-900">
                   Go home <span aria-hidden="true">→</span>
                 </Link>
-              } */}
+              }
             </div>
           </div>
         </div>

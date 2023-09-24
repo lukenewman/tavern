@@ -11,7 +11,7 @@ export const useInitializeXmtp = () => {
 
   const { data: walletClient } = useWalletClient({ chainId: goerli.id });
 
-  const { initialize } = useClient();
+  const { client, initialize } = useClient();
 
   const handleConnect = useCallback(async () => {
     if (!walletClient) return;
@@ -24,4 +24,6 @@ export const useInitializeXmtp = () => {
       handleConnect();
     }
   }, [account])
+
+  return { client };
 }

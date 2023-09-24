@@ -27,7 +27,7 @@ export const yourSubs: ChatroomUser[] = [
 export default function Sidebar({ children }: { children: React.ReactNode }) {
   const [sidebarOpen, setSidebarOpen] = useState(false);
 
-  const isWatchPath = window.location.pathname.startsWith('/user/watch');
+  const isWatchPath = window.location.pathname.startsWith('/home/watch');
   const roomId = isWatchPath ? Number(window.location.pathname.split('/')[3]) : -1;
 
   return (
@@ -91,7 +91,7 @@ export default function Sidebar({ children }: { children: React.ReactNode }) {
                               <li key={ix}>
                                 <Link
                                   key={ix}
-                                  href={`/user/watch/${item.id}`}
+                                  href={`/home/watch/${item.id}`}
                                   className={classNames(
                                     roomId === item.id
                                       ? 'bg-indigo-700 text-white'
@@ -114,7 +114,7 @@ export default function Sidebar({ children }: { children: React.ReactNode }) {
                               <li key={ix}>
                                 <Link
                                   key={ix}
-                                  href={`/user/watch/${item.chatroomId}`}
+                                  href={`/home/watch/${item.chatroomId}`}
                                   className={classNames(
                                     roomId === item.id
                                       ? 'bg-indigo-700 text-white'
@@ -132,7 +132,7 @@ export default function Sidebar({ children }: { children: React.ReactNode }) {
                       <div className='w-full justify-center'>
                         <a
                           className='px-4 py-2 flex items-center bg-green-800 text-indigo-200 rounded-full gap-2'
-                          href='/user/create'
+                          href='/home/create'
                         >
                           <VideoCameraIcon className='w-6 h-6'/>
                           Go Live
@@ -166,7 +166,7 @@ export default function Sidebar({ children }: { children: React.ReactNode }) {
                       <li key={ix}>
                         <Link
                           key={ix}
-                          href={`/user/watch/${item.id}`}
+                          href={`/home/watch/${item.id}`}
                           className={classNames(
                             'text-indigo-200 hover:text-white hover:bg-indigo-700',
                             'group flex gap-x-3 rounded-md p-2 text-sm leading-6 font-semibold'
@@ -187,7 +187,7 @@ export default function Sidebar({ children }: { children: React.ReactNode }) {
                       <li key={ix}>
                         <Link
                           key={ix}
-                          href={`/user/watch/${item.chatroomId}`}
+                          href={`/home/watch/${item.chatroomId}`}
                           className={classNames(
                             'text-indigo-200 hover:text-white hover:bg-indigo-700',
                             'group flex gap-x-3 rounded-md p-2 text-sm leading-6 font-semibold'
@@ -203,7 +203,7 @@ export default function Sidebar({ children }: { children: React.ReactNode }) {
               <div className='w-full justify-center'>
                 <a
                   className='px-4 py-2 flex items-center bg-green-800 text-indigo-200 rounded-full gap-2'
-                  href='/user/create'
+                  href='/home/create'
                 >
                   <VideoCameraIcon className='w-6 h-6'/>
                   Go Live
