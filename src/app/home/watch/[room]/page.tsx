@@ -15,7 +15,6 @@ export default function Chat() {
   const STREAM_PRIVATE_KEY = '0x34995edc3b4dad962aa0677c7e629552f821b204b2173e6c55af19128e643076';
   const STREAM_ADDRESS = '0xf1e0eB5F6Ba7844e0e9E9B7fFa3E3BBFd77FE079';
   const OWNER_ADDRESS = '';
-  const [client, setClient] = useState<Client | undefined>();
   const [messages, setMessages] = useState<string[]>([]);
 
   if (!address) {
