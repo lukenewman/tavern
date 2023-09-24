@@ -2,7 +2,7 @@
 
 import { api } from "../../utils/api";
 
-export default function User() {
+export default function Home() {
   const roomsQuery = api.rooms.getAll.useQuery();
 
   return (

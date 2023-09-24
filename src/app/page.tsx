@@ -4,11 +4,15 @@ import { useAccount } from 'wagmi';
 import Link from 'next/link'
 import Image from 'next/image';
 import tavern from './tavern.jpeg';
-import { useInitialize } from '~/hooks/useInitialize';
+import { useEffect } from 'react';
+import { useRouter } from 'next/navigation';
 
-export default function Home() {
-  const { address } = useAccount();
-  useInitialize();
+export default function App() {
+  const router = useRouter();
+  const account = useAccount();
+  useEffect(() => {
+    router.push(account ? '/home' : '/');
+  }, [account]);
   
   return (
     <div className="bg-white w-full h-full">
@@ -36,7 +40,7 @@ export default function Home() {
             </p>
             <div className="mt-10 flex items-center gap-x-6">
               <w3m-button balance='hide' />
-              {address &&
+              {account.address &&
                 <Link href="/user" className="text-sm pl-2 font-semibold leading-6 text-gray-900">
                   Go home <span aria-hidden="true">→</span>
                 </Link>

@@ -2,7 +2,7 @@
 
 import Sidebar from "../../components/Sidebar"
 
-const UserHome = ({ children }: {children: React.ReactNode}) => {
+const HomeLayout = ({ children }: {children: React.ReactNode}) => {
   return (
     <div className="w-screen h-screen">
       <Sidebar>
@@ -12,4 +12,4 @@ const UserHome = ({ children }: {children: React.ReactNode}) => {
   )
 }
 
-export default UserHome
+export default HomeLayout;
