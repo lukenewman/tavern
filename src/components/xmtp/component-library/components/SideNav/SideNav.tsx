@@ -61,8 +61,8 @@ const SideNav = ({
   // When language changes, change the modal text to render the corresponding locale selector within that language
   useEffect(() => {
     const langs = supportedLocales.map((locale: string) => {
-      const lang = locale?.split("-")?.[0] || "en";
-      const languageNames = new Intl.DisplayNames([i18next.language], {
+      const lang = locale?.split("-")?.[0] ?? "en";
+      const languageNames = new Intl.DisplayNames([i18next.language ?? 'en'], {
         type: "language",
       });
 

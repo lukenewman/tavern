@@ -17,10 +17,6 @@ export default function Chat() {
   const OWNER_ADDRESS = '';
   const [messages, setMessages] = useState<string[]>([]);
 
-  if (!address) {
-    return <>no address</>;
-  }
-
   const mapMessages = (messages: DecodedMessage<string | undefined>[]): string[] => {
     return messages.map(m => {
       if (m.contentType.sameAs(ContentTypeGroupChat)) {
@@ -65,6 +61,10 @@ export default function Chat() {
       }
     })();
   }, []);
+
+  if (!address) {
+    return <>no address</>;
+  }
 
   const addMessage = (message: DecodedMessage<string | undefined>) => {
     setMessages([...messages, ...mapMessages([message])]);

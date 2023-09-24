@@ -1,22 +1,13 @@
 'use client'
 
-import { useAccount } from 'wagmi';
-import Link from 'next/link'
 import Image from 'next/image';
 import tavern from './tavern.jpeg';
-import { useEffect } from 'react';
-import { useRouter } from 'next/navigation';
+import { useCheckConnection } from '../hooks/useCheckConnection';
 import { useInitializeXmtp } from '~/hooks/useInitializeXmtp';
 
 export default function App() {
-  const router = useRouter();
-  const account = useAccount();
-
-  useEffect(() => {
-    router.push(account ? '/home' : '/');
-  }, [account]);
-
-  useInitializeXmtp()
+  useCheckConnection();
+  useInitializeXmtp();
   
   return (
     <div className="bg-white w-full h-full">
@@ -44,11 +35,11 @@ export default function App() {
             </p>
             <div className="mt-10 flex items-center gap-x-6">
               <w3m-button balance='hide' />
-              {account.address &&
+              {/* {account.address &&
                 <Link href="/user" className="text-sm pl-2 font-semibold leading-6 text-gray-900">
                   Go home <span aria-hidden="true">→</span>
                 </Link>
-              }
+              } */}
             </div>
           </div>
         </div>
