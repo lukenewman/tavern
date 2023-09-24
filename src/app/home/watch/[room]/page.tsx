@@ -21,6 +21,11 @@ const mapMessages = (messages: DecodedMessage<string | undefined>[]): string[] =
   }).filter(m => m);
 };
 
+export type ChatMessage = {
+  sender: string,
+  message: string,
+}
+
 export default function Chat({ params }: { params: { room: string } }) {
   const { address } = useAccount();
   // const STREAM_PRIVATE_KEY = '0x34995edc3b4dad962aa0677c7e629552f821b204b2173e6c55af19128e643076';
@@ -84,6 +89,8 @@ export default function Chat({ params }: { params: { room: string } }) {
   if (!address) {
     return <>no address</>;
   }
+
+  console.log(messages);
 
   return (
     <div className='flex flex-col gap-10'>
